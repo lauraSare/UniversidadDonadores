@@ -1,13 +1,17 @@
 package Modelo;
 
 import ConexionBD.ConexionBD;
+import Vista.VentanaInicio;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class InicioSesion extends JInternalFrame implements ActionListener {
@@ -83,26 +87,32 @@ public class InicioSesion extends JInternalFrame implements ActionListener {
 
         desktopPane.add(this);
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String usuario = tfUsuario.getText();
         String contrasena = new String(tfContrasena.getPassword());
 
-        // Guardar los datos en la base de datos
         try {
             Connection conexion = ConexionBD.getInstance().getConnection();
-            String query = "INSERT INTO Usuarios (usuario, contrasena) VALUES (?, ?)";
+            String query = "SELECT * FROM Usuarios WHERE usuario = ? AND contrasena = ?";
             PreparedStatement statement = conexion.prepareStatement(query);
             statement.setString(1, usuario);
             statement.setString(2, contrasena);
-            statement.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
-            setVisible(false);
-            dispose();
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
+                setVisible(false);
+                dispose();
+
+                VentanaInicio ventanaInicio = VentanaInicio.getInstancia();
+                ventanaInicio.sesionIniciada = true;
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al guardar los datos en la base de datos.");
+            JOptionPane.showMessageDialog(this, "Error al verificar las credenciales en la base de datos.");
         }
     }
 }
