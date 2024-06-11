@@ -8,7 +8,7 @@ public class ConexionBD {
     private PreparedStatement pstm;
     private ResultSet rs;
 
-    private ConexionBD() {
+   /* private ConexionBD() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String URL = "jdbc:mysql://localhost:3306/UniversidadDonadores";
@@ -20,7 +20,20 @@ public class ConexionBD {
         } catch (SQLException e) {
             System.out.println("Error en la ruta de conexión");
         }
-    }
+    }*/
+   private ConexionBD() {
+       try {
+           Class.forName("com.mysql.cj.jdbc.Driver");
+           String URL = "jdbc:mysql://localhost:3306/UniversidadDonadores";
+           conexion = DriverManager.getConnection(URL, "laura", "laura");
+           System.out.println("YEEEEI casi soy ISC =)");
+           System.out.println("Conexión establecida");
+       } catch (ClassNotFoundException e) {
+           System.out.println("Error en el controlador de conexión a MySQL");
+       } catch (SQLException e) {
+           System.out.println("Error en la ruta de conexión");
+       }
+   }
 
     public static ConexionBD getInstance() {
         if (instance == null) {

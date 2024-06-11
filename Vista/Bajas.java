@@ -52,7 +52,7 @@ public class Bajas extends JInternalFrame implements ActionListener {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 4;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -60,33 +60,30 @@ public class Bajas extends JInternalFrame implements ActionListener {
         add(scrollPane, gbc);
 
         // Botones en la parte inferior de la ventana (centrados)
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
         btnEliminar = new JButton("ELIMINAR");
         btnEliminar.addActionListener(this);
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        add(btnEliminar, gbc);
+        panelBotones.add(btnEliminar);
 
         btnCancelar = new JButton("CANCELAR");
         btnCancelar.addActionListener(this);
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        add(btnCancelar, gbc);
+        panelBotones.add(btnCancelar);
 
         btnActualizar = new JButton("ACTUALIZAR");
         btnActualizar.addActionListener(this);
+        panelBotones.add(btnActualizar);
+
         gbc = new GridBagConstraints();
-        gbc.gridx = 2;
+        gbc.gridx = 0;
         gbc.gridy = 2;
+        gbc.gridwidth = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
-        add(btnActualizar, gbc);
+        add(panelBotones, gbc);
 
         cargarDatosTabla();
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnEliminar) {

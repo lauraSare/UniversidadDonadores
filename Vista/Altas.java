@@ -69,6 +69,7 @@ public class Altas extends JInternalFrame implements ActionListener {
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0; // Ajuste de peso para expandirse
         gbc.insets = new Insets(10, 10, 10, 10);
         add(tfNombre, gbc);
 
@@ -158,6 +159,7 @@ public class Altas extends JInternalFrame implements ActionListener {
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 1;
+        gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
         add(tfMunicipio, gbc);
@@ -173,6 +175,7 @@ public class Altas extends JInternalFrame implements ActionListener {
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 2;
+        gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
         add(tfEstado, gbc);
@@ -188,6 +191,7 @@ public class Altas extends JInternalFrame implements ActionListener {
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 3;
+        gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
         add(tfPais, gbc);
@@ -203,6 +207,7 @@ public class Altas extends JInternalFrame implements ActionListener {
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 4;
+        gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
         add(tfFecha, gbc);
@@ -219,6 +224,7 @@ public class Altas extends JInternalFrame implements ActionListener {
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 5;
+        gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
         add(comboMetodoPago, gbc);
@@ -235,42 +241,37 @@ public class Altas extends JInternalFrame implements ActionListener {
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 6;
+        gbc.weightx = 0.5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
         add(comboCategoria, gbc);
 
         // Botones en la parte inferior de la ventana (centrados)
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
         btnAgregar = new JButton("AGREGAR");
         btnAgregar.addActionListener(this);
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 7;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        add(btnAgregar, gbc);
+        panelBotones.add(btnAgregar);
 
         btnLimpiar = new JButton("LIMPIAR");
         btnLimpiar.addActionListener(this);
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 7;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        add(btnLimpiar, gbc);
+        panelBotones.add(btnLimpiar);
 
         btnCancelar = new JButton("CANCELAR");
         btnCancelar.addActionListener(this);
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 7;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        add(btnCancelar, gbc);
+        panelBotones.add(btnCancelar);
 
-       /* btnActualizar = new JButton("ACTUALIZAR");
+        btnActualizar = new JButton("ACTUALIZAR");
         btnActualizar.addActionListener(this);
+        panelBotones.add(btnActualizar);
+
         gbc = new GridBagConstraints();
-        gbc.gridx = 2;
+        gbc.gridx = 0;
         gbc.gridy = 7;
+        gbc.gridwidth = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
-        add(btnActualizar, gbc);*/
+        add(panelBotones, gbc);
 
         String[] columnNames = {"ID", "Nombre", "Apellido Paterno", "Calle", "Número", "Colonia", "Código Postal", "Municipio", "Estado", "País", "Fecha", "Método de Pago", "Categoría"};
         tableModel = new DefaultTableModel(columnNames, 0);
@@ -308,10 +309,11 @@ public class Altas extends JInternalFrame implements ActionListener {
             if (!validarNombre(nombre) || !validarApellidoPaterno(apellidoPaterno) ||
                     !validarCalle(calle) || !validarNumero(numero) ||
                     !validarColonia(colonia) || !validarCodigoPostal(codigoPostal) ||
-                    !validarMunicipio(municipio)|| !validarEstado(estado) ||
+                    !validarMunicipio(municipio) || !validarEstado(estado) ||
                     !validarPais(pais) || !validarFecha(fechaStr)) {
                 return;
-            }try {
+            }
+            try {
                 Connection conexion = ConexionBD.getInstance().getConnection();
                 String query = "INSERT INTO Alumnos (nombre, apellido_paterno, calle, numero, colonia, codigo_postal, municipio, estado, pais, fecha, metodo_pago, categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -324,7 +326,6 @@ public class Altas extends JInternalFrame implements ActionListener {
                 statement.setString(7, municipio);
                 statement.setString(8, estado);
                 statement.setString(9, pais);
-
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 java.util.Date utilDate = dateFormat.parse(fechaStr);
                 java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());

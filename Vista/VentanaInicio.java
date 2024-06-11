@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import Vista.Consultas;
 
 public class VentanaInicio extends JFrame implements ActionListener {
     private static VentanaInicio instancia;
@@ -16,6 +17,8 @@ public class VentanaInicio extends JFrame implements ActionListener {
     private JMenuItem menuInicioSesion;
     private JMenuItem menuAltas;
     private JMenuItem menuBajas;
+    private JMenuItem menuCambios;
+    private JMenuItem menuConsultas;
 
 
     public VentanaInicio() {
@@ -31,7 +34,9 @@ public class VentanaInicio extends JFrame implements ActionListener {
         });
         setTitle("UNIVERSIDAD");
         setSize(800, 800);
+        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
         setLayout(new BorderLayout());
+
 
         // Crear el JDesktopPane
         desktopPane = new JDesktopPane();
@@ -78,9 +83,37 @@ public class VentanaInicio extends JFrame implements ActionListener {
         ImageIcon iconoDeleteRedimensionado = new ImageIcon(imagenRedimensionadaDelete);
         menuBajas.setIcon(iconoDeleteRedimensionado);
 
+
         menuBajas.setFont(new Font("Arial", Font.PLAIN, 14)); // Establecer fuente y tamaño para el JMenuItem
         menuBajas.addActionListener(this);
         menuArchivo.add(menuBajas);
+
+        menuCambios = new JMenuItem("Cambios");
+
+        // Redimensionar la imagen de "cambios.png" al mismo tamaño que la imagen de "menusito.png"
+        ImageIcon iconoCambios = new ImageIcon("./imagenes/cambios.png");
+        Image imagenCambios = iconoCambios.getImage();
+        Image imagenRedimensionadaCambios = imagenCambios.getScaledInstance(iconoMenu.getIconWidth(), iconoMenu.getIconHeight(), Image.SCALE_SMOOTH);
+        ImageIcon iconoCambiosRedimensionado = new ImageIcon(imagenRedimensionadaCambios);
+        menuCambios.setIcon(iconoCambiosRedimensionado);
+
+        menuCambios.setFont(new Font("Arial", Font.PLAIN, 14)); // Establecer fuente y tamaño para el JMenuItem
+        menuCambios.addActionListener(this);
+        menuArchivo.add(menuCambios);
+
+        menuConsultas = new JMenuItem("Consultas"); // Crear el JMenuItem "Consultas"
+
+        // Redimensionar la imagen de "consultas.png" al mismo tamaño que la imagen de "menusito.png"
+        ImageIcon iconoConsultas = new ImageIcon("./imagenes/Consulta.png");
+        Image imagenConsultas = iconoConsultas.getImage();
+        Image imagenRedimensionadaConsultas = imagenConsultas.getScaledInstance(iconoMenu.getIconWidth(), iconoMenu.getIconHeight(), Image.SCALE_SMOOTH);
+        ImageIcon iconoConsultasRedimensionado = new ImageIcon(imagenRedimensionadaConsultas);
+        menuConsultas.setIcon(iconoConsultasRedimensionado);
+
+        menuConsultas.setFont(new Font("Arial", Font.PLAIN, 14)); // Establecer fuente y tamaño para el JMenuItem
+        menuConsultas.addActionListener(this); // Agregar el ActionListener
+        menuArchivo.add(menuConsultas); // Agregar el JMenuItem al JMenu
+
 
         menuBar.add(menuArchivo);
         setJMenuBar(menuBar);
@@ -111,11 +144,28 @@ public class VentanaInicio extends JFrame implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(this, "Debe iniciar sesión primero.", "Acceso denegado", JOptionPane.WARNING_MESSAGE);
             }
-        } else if (e.getSource() == menuBajas) { // Acción para la opción de bajas
+        } else if (e.getSource() == menuBajas) {
             if (sesionIniciada) {
                 Bajas bajas = new Bajas();
                 desktopPane.add(bajas);
                 bajas.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe iniciar sesión primero.", "Acceso denegado", JOptionPane.WARNING_MESSAGE);
+            }
+        } else if (e.getSource() == menuCambios) {
+            if (sesionIniciada) {
+                Cambios cambios = new Cambios();
+                desktopPane.add(cambios);
+                cambios.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe iniciar sesión primero.", "Acceso denegado", JOptionPane.WARNING_MESSAGE);
+            }
+        }  else if (e.getSource() == menuConsultas) {
+            if (sesionIniciada) {
+                Consultas consultas = new Consultas();
+                desktopPane.add(consultas);
+                consultas.setVisible(true);
+                JOptionPane.showMessageDialog(this, "La ventana Consultas se abrió correctamente.");
             } else {
                 JOptionPane.showMessageDialog(this, "Debe iniciar sesión primero.", "Acceso denegado", JOptionPane.WARNING_MESSAGE);
             }
