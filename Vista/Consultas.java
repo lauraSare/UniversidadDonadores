@@ -7,516 +7,702 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.SimpleDateFormat;
 
 public class Consultas extends JInternalFrame implements ActionListener {
-    private ConexionBD conexion;
+    private JRadioButton rbNombre;
+    private JRadioButton rbApellidoPaterno;
+    private JRadioButton rbCalle;
+    private JRadioButton rbNumero;
+    private JRadioButton rbColonia;
+    private JRadioButton rbCodigoPostal;
+    private JRadioButton rbMunicipio;
+    private JRadioButton rbEstado;
+    private JRadioButton rbPais;
+    private JRadioButton rbFecha;
+    private JRadioButton rbMetodoPago;
+    private JRadioButton rbCategoria;
+    private JTextField tfNombre;
+    private JTextField tfApellidoPaterno;
+    private JTextField tfCalle;
+    private JTextField tfNumero;
+    private JTextField tfColonia;
+    private JTextField tfCodigoPostal;
+    private JTextField tfMunicipio;
+    private JTextField tfEstado;
+    private JTextField tfPais;
+    private JTextField tfFecha;
+    private JTextField tfMetodoPago;
+    private JTextField tfCategoria;
+    private JButton btnConsultar;
+    private JButton btnLimpiar;
+    private JButton btnCancelar;
+    private JButton btnActualizar;
     private DefaultTableModel tableModel;
-    private javax.swing.JTextField tfNombre;
-    private javax.swing.JTable table;
-    private javax.swing.JTextField tfApellidoPaterno;
-    private javax.swing.JTextField tfCalle;
-    private javax.swing.JTextField tfNumero;
-    private javax.swing.JTextField tfColonia;
-    private javax.swing.JTextField tfCodigoPostal;
-    private javax.swing.JTextField tfMunicipio;
-    private javax.swing.JTextField tfEstado;
-    private javax.swing.JTextField tfPais;
-    private javax.swing.JTextField tfFecha;
-    private javax.swing.JComboBox<String> comboMetodoPago;
-    private javax.swing.JComboBox<String> comboCategoria;
-    private javax.swing.JRadioButton radioNombre;
-    private javax.swing.JRadioButton radioApellidoPaterno;
-    private javax.swing.JRadioButton radioCalle;
-    private javax.swing.JRadioButton radioNumero;
-    private javax.swing.JRadioButton radioColonia;
-    private javax.swing.JRadioButton radioCodigoPostal;
-    private javax.swing.JRadioButton radioMunicipio;
-    private javax.swing.JRadioButton radioEstado;
-    private javax.swing.JRadioButton radioPais;
-    private javax.swing.JRadioButton radioFecha;
-    private javax.swing.JRadioButton radioMetodoPago;
-    private javax.swing.JRadioButton radioCategoria;
-    private javax.swing.JButton btnConsultar;
-    private javax.swing.ButtonGroup group;
 
     public Consultas() {
-        super("Consultas", true, true, true, true);
-        conexion = ConexionBD.getInstance();
-        tableModel = new DefaultTableModel();
-        table = new JTable(tableModel);
+        setLayout(new GridBagLayout());
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        setTitle("CONSULTAS");
+        setSize(800, 600);
+        setClosable(true);
+        setResizable(false);
+        getContentPane().setBackground(new Color(0x7E2714));
 
-        initComponents();
-        cargarDatosTabla();
-        habilitarCampos(false);
-    }
+        JLabel lblTitulo = new JLabel("CONSULTAS");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 30));
+        lblTitulo.setForeground(Color.white);
+        GridBagConstraints gbcTitulo = new GridBagConstraints();
+        gbcTitulo.gridx = 0;
+        gbcTitulo.gridy = 0;
+        gbcTitulo.gridwidth = 4;
+        gbcTitulo.insets = new Insets(10, 10, 10, 10);
+        add(lblTitulo, gbcTitulo);
 
-    private void initComponents() {
-        tfNombre = new JTextField();
-        tfApellidoPaterno = new JTextField();
-        tfCalle = new JTextField();
-        tfNumero = new JTextField();
-        tfColonia = new JTextField();
-        tfCodigoPostal = new JTextField();
-        tfMunicipio = new JTextField();
-        tfEstado = new JTextField();
-        tfPais = new JTextField();
-        tfFecha = new JTextField();
-        comboMetodoPago = new JComboBox<>(new String[]{"Efectivo", "Tarjeta", "Transferencia"});
-        comboCategoria = new JComboBox<>(new String[]{"Estudiante", "Profesional", "Otro"});
-        radioNombre = new JRadioButton("NOMBRE");
-        radioApellidoPaterno = new JRadioButton("APELLIDO PATERNO");
-        radioCalle = new JRadioButton("CALLE");
-        radioNumero = new JRadioButton("NÚMERO");
-        radioColonia = new JRadioButton("COLONIA");
-        radioCodigoPostal = new JRadioButton("CÓDIGO POSTAL");
-        radioMunicipio = new JRadioButton("MUNICIPIO");
-        radioEstado = new JRadioButton("ESTADO");
-        radioPais = new JRadioButton("PAÍS");
-        radioFecha = new JRadioButton("FECHA");
-        radioMetodoPago = new JRadioButton("MÉTODO DE PAGO");
-        radioCategoria = new JRadioButton("CATEGORÍA");
-        btnConsultar = new JButton("CONSULTAR");
-        group = new ButtonGroup();
+        // Primera columna de campos y cajas de texto
+        JLabel lblNombre = new JLabel("NOMBRE:");
+        lblNombre.setForeground(Color.white);
+        GridBagConstraints gbcLblNombre = new GridBagConstraints();
+        gbcLblNombre.gridx = 0;
+        gbcLblNombre.gridy = 1;
+        gbcLblNombre.anchor = GridBagConstraints.WEST;
+        gbcLblNombre.insets = new Insets(5, 10, 5, 10);
+        add(lblNombre, gbcLblNombre);
 
-        group.add(radioNombre);
-        group.add(radioApellidoPaterno);
-        group.add(radioCalle);
-        group.add(radioNumero);
-        group.add(radioColonia);
-        group.add(radioCodigoPostal);
-        group.add(radioMunicipio);
-        group.add(radioEstado);
-        group.add(radioPais);
-        group.add(radioFecha);
-        group.add(radioMetodoPago);
-        group.add(radioCategoria);
+        rbNombre = new JRadioButton();
+        rbNombre.setForeground(Color.white);
+        rbNombre.setBackground(new Color(0x7E2714));
+        rbNombre.setSelected(true);
+        rbNombre.addActionListener(this);
+        GridBagConstraints gbcRbNombre = new GridBagConstraints();
+        gbcRbNombre.gridx = 1;
+        gbcRbNombre.gridy = 1;
+        gbcRbNombre.anchor = GridBagConstraints.WEST;
+        add(rbNombre, gbcRbNombre);
 
+        tfNombre = new JTextField(20);
+        GridBagConstraints gbcTfNombre = new GridBagConstraints();
+        gbcTfNombre.gridx = 2;
+        gbcTfNombre.gridy = 1;
+        gbcTfNombre.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfNombre.weightx = 1.0;
+        gbcTfNombre.insets = new Insets(5, 10, 5, 10);
+        add(tfNombre, gbcTfNombre);
+
+        JLabel lblApellidoPaterno = new JLabel("APELLIDO PATERNO:");
+        lblApellidoPaterno.setForeground(Color.white);
+        GridBagConstraints gbcLblApellidoPaterno = new GridBagConstraints();
+        gbcLblApellidoPaterno.gridx = 0;
+        gbcLblApellidoPaterno.gridy = 2;
+        gbcLblApellidoPaterno.anchor = GridBagConstraints.WEST;
+        gbcLblApellidoPaterno.insets = new Insets(5, 10, 5, 10);
+        add(lblApellidoPaterno, gbcLblApellidoPaterno);
+
+        rbApellidoPaterno = new JRadioButton();
+        rbApellidoPaterno.setForeground(Color.white);
+        rbApellidoPaterno.setBackground(new Color(0x7E2714));
+        rbApellidoPaterno.addActionListener(this);
+        GridBagConstraints gbcRbApellidoPaterno = new GridBagConstraints();
+        gbcRbApellidoPaterno.gridx = 1;
+        gbcRbApellidoPaterno.gridy = 2;
+        gbcRbApellidoPaterno.anchor = GridBagConstraints.WEST;
+        add(rbApellidoPaterno, gbcRbApellidoPaterno);
+
+        tfApellidoPaterno = new JTextField(20);
+        tfApellidoPaterno.setEnabled(false);
+        GridBagConstraints gbcTfApellidoPaterno = new GridBagConstraints();
+        gbcTfApellidoPaterno.gridx = 2;
+        gbcTfApellidoPaterno.gridy = 2;
+        gbcTfApellidoPaterno.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfApellidoPaterno.weightx = 1.0;
+        gbcTfApellidoPaterno.insets = new Insets(5, 10, 5, 10);
+        add(tfApellidoPaterno, gbcTfApellidoPaterno);
+
+        JLabel lblCalle = new JLabel("CALLE:");
+        lblCalle.setForeground(Color.white);
+        GridBagConstraints gbcLblCalle = new GridBagConstraints();
+        gbcLblCalle.gridx = 0;
+        gbcLblCalle.gridy = 3;
+        gbcLblCalle.anchor = GridBagConstraints.WEST;
+        gbcLblCalle.insets = new Insets(5, 10, 5, 10);
+        add(lblCalle, gbcLblCalle);
+
+        rbCalle = new JRadioButton();
+        rbCalle.setForeground(Color.white);
+        rbCalle.setBackground(new Color(0x7E2714));
+        rbCalle.addActionListener(this);
+        GridBagConstraints gbcRbCalle = new GridBagConstraints();
+        gbcRbCalle.gridx = 1;
+        gbcRbCalle.gridy = 3;
+        gbcRbCalle.anchor = GridBagConstraints.WEST;
+        add(rbCalle, gbcRbCalle);
+
+        tfCalle = new JTextField(20);
+        tfCalle.setEnabled(false);
+        GridBagConstraints gbcTfCalle = new GridBagConstraints();
+        gbcTfCalle.gridx = 2;
+        gbcTfCalle.gridy = 3;
+        gbcTfCalle.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfCalle.weightx = 1.0;
+        gbcTfCalle.insets = new Insets(5, 10, 5, 10);
+        add(tfCalle, gbcTfCalle);
+
+        JLabel lblNumero = new JLabel("NÚMERO:");
+        lblNumero.setForeground(Color.white);
+        GridBagConstraints gbcLblNumero = new GridBagConstraints();
+        gbcLblNumero.gridx = 0;
+        gbcLblNumero.gridy = 4;
+        gbcLblNumero.anchor = GridBagConstraints.WEST;
+        gbcLblNumero.insets = new Insets(5, 10, 5, 10);
+        add(lblNumero, gbcLblNumero);
+
+        rbNumero = new JRadioButton();
+        rbNumero.setForeground(Color.white);
+        rbNumero.setBackground(new Color(0x7E2714));
+        rbNumero.addActionListener(this);
+        GridBagConstraints gbcRbNumero = new GridBagConstraints();
+        gbcRbNumero.gridx = 1;
+        gbcRbNumero.gridy = 4;
+        gbcRbNumero.anchor = GridBagConstraints.WEST;
+        add(rbNumero, gbcRbNumero);
+
+        tfNumero = new JTextField(20);
+        tfNumero.setEnabled(false);
+        GridBagConstraints gbcTfNumero = new GridBagConstraints();
+        gbcTfNumero.gridx = 2;
+        gbcTfNumero.gridy = 4;
+        gbcTfNumero.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfNumero.weightx = 1.0;
+        gbcTfNumero.insets = new Insets(5, 10, 5, 10);
+        add(tfNumero, gbcTfNumero);
+
+        JLabel lblColonia = new JLabel("COLONIA:");
+        lblColonia.setForeground(Color.white);
+        GridBagConstraints gbcLblColonia = new GridBagConstraints();
+        gbcLblColonia.gridx = 0;
+        gbcLblColonia.gridy = 5;
+        gbcLblColonia.anchor = GridBagConstraints.WEST;
+        gbcLblColonia.insets = new Insets(5, 10, 5, 10);
+        add(lblColonia, gbcLblColonia);
+
+        rbColonia = new JRadioButton();
+        rbColonia.setForeground(Color.white);
+        rbColonia.setBackground(new Color(0x7E2714));
+        rbColonia.addActionListener(this);
+        GridBagConstraints gbcRbColonia = new GridBagConstraints();
+        gbcRbColonia.gridx = 1;
+        gbcRbColonia.gridy = 5;
+        gbcRbColonia.anchor = GridBagConstraints.WEST;
+        add(rbColonia, gbcRbColonia);
+
+        tfColonia = new JTextField(20);
+        tfColonia.setEnabled(false);
+        GridBagConstraints gbcTfColonia = new GridBagConstraints();
+        gbcTfColonia.gridx = 2;
+        gbcTfColonia.gridy = 5;
+        gbcTfColonia.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfColonia.weightx = 1.0;
+        gbcTfColonia.insets = new Insets(5, 10, 5, 10);
+        add(tfColonia, gbcTfColonia);
+
+        JLabel lblCodigoPostal = new JLabel("CÓDIGO POSTAL:");
+        lblCodigoPostal.setForeground(Color.white);
+        GridBagConstraints gbcLblCodigoPostal = new GridBagConstraints();
+        gbcLblCodigoPostal.gridx = 0;
+        gbcLblCodigoPostal.gridy = 6;
+        gbcLblCodigoPostal.anchor = GridBagConstraints.WEST;
+        gbcLblCodigoPostal.insets = new Insets(5, 10, 5, 10);
+        add(lblCodigoPostal, gbcLblCodigoPostal);
+
+        rbCodigoPostal = new JRadioButton();
+        rbCodigoPostal.setForeground(Color.white);
+        rbCodigoPostal.setBackground(new Color(0x7E2714));
+        rbCodigoPostal.addActionListener(this);
+        GridBagConstraints gbcRbCodigoPostal = new GridBagConstraints();
+        gbcRbCodigoPostal.gridx = 1;
+        gbcRbCodigoPostal.gridy = 6;
+        gbcRbCodigoPostal.anchor = GridBagConstraints.WEST;
+        add(rbCodigoPostal, gbcRbCodigoPostal);
+
+        tfCodigoPostal = new JTextField(20);
+        tfCodigoPostal.setEnabled(false);
+        GridBagConstraints gbcTfCodigoPostal = new GridBagConstraints();
+        gbcTfCodigoPostal.gridx = 2;
+        gbcTfCodigoPostal.gridy = 6;
+        gbcTfCodigoPostal.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfCodigoPostal.weightx = 1.0;
+        gbcTfCodigoPostal.insets = new Insets(5, 10, 5, 10);
+        add(tfCodigoPostal, gbcTfCodigoPostal);
+
+        // Segunda columna de campos y cajas de texto
+        JLabel lblMunicipio = new JLabel("MUNICIPIO:");
+        lblMunicipio.setForeground(Color.white);
+        GridBagConstraints gbcLblMunicipio = new GridBagConstraints();
+        gbcLblMunicipio.gridx = 3;
+        gbcLblMunicipio.gridy = 1;
+        gbcLblMunicipio.anchor = GridBagConstraints.WEST;
+        gbcLblMunicipio.insets = new Insets(5, 10, 5, 10);
+        add(lblMunicipio, gbcLblMunicipio);
+
+        rbMunicipio = new JRadioButton();
+        rbMunicipio.setForeground(Color.white);
+        rbMunicipio.setBackground(new Color(0x7E2714));
+        rbMunicipio.addActionListener(this);
+        GridBagConstraints gbcRbMunicipio = new GridBagConstraints();
+        gbcRbMunicipio.gridx = 4;
+        gbcRbMunicipio.gridy = 1;
+        gbcRbMunicipio.anchor = GridBagConstraints.WEST;
+        add(rbMunicipio, gbcRbMunicipio);
+
+        tfMunicipio = new JTextField(20);
+        tfMunicipio.setEnabled(false);
+        GridBagConstraints gbcTfMunicipio = new GridBagConstraints();
+        gbcTfMunicipio.gridx = 5;
+        gbcTfMunicipio.gridy = 1;
+        gbcTfMunicipio.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfMunicipio.weightx = 1.0;
+        gbcTfMunicipio.insets = new Insets(5, 10, 5, 10);
+        add(tfMunicipio, gbcTfMunicipio);
+
+        JLabel lblEstado = new JLabel("ESTADO:");
+        lblEstado.setForeground(Color.white);
+        GridBagConstraints gbcLblEstado = new GridBagConstraints();
+        gbcLblEstado.gridx = 3;
+        gbcLblEstado.gridy = 2;
+        gbcLblEstado.anchor = GridBagConstraints.WEST;
+        gbcLblEstado.insets = new Insets(5, 10, 5, 10);
+        add(lblEstado, gbcLblEstado);
+        rbEstado = new JRadioButton();
+        rbEstado.setForeground(Color.white);
+        rbEstado.setBackground(new Color(0x7E2714));
+        rbEstado.addActionListener(this);
+        GridBagConstraints gbcRbEstado = new GridBagConstraints();
+        gbcRbEstado.gridx = 4;
+        gbcRbEstado.gridy = 2;
+        gbcRbEstado.anchor = GridBagConstraints.WEST;
+        add(rbEstado, gbcRbEstado);
+        tfEstado = new JTextField(20);
+        tfEstado.setEnabled(false);
+        GridBagConstraints gbcTfEstado = new GridBagConstraints();
+        gbcTfEstado.gridx = 5;
+        gbcTfEstado.gridy = 2;
+        gbcTfEstado.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfEstado.weightx = 1.0;
+        gbcTfEstado.insets = new Insets(5, 10, 5, 10);
+        add(tfEstado, gbcTfEstado);
+
+        JLabel lblPais = new JLabel("PAÍS:");
+        lblPais.setForeground(Color.white);
+        GridBagConstraints gbcLblPais = new GridBagConstraints();
+        gbcLblPais.gridx = 3;
+        gbcLblPais.gridy = 3;
+        gbcLblPais.anchor = GridBagConstraints.WEST;
+        gbcLblPais.insets = new Insets(5, 10, 5, 10);
+        add(lblPais, gbcLblPais);
+
+        rbPais = new JRadioButton();
+        rbPais.setForeground(Color.white);
+        rbPais.setBackground(new Color(0x7E2714));
+        rbPais.addActionListener(this);
+        GridBagConstraints gbcRbPais = new GridBagConstraints();
+        gbcRbPais.gridx = 4;
+        gbcRbPais.gridy = 3;
+        gbcRbPais.anchor = GridBagConstraints.WEST;
+        add(rbPais, gbcRbPais);
+
+        tfPais = new JTextField(20);
+        tfPais.setEnabled(false);
+        GridBagConstraints gbcTfPais = new GridBagConstraints();
+        gbcTfPais.gridx = 5;
+        gbcTfPais.gridy = 3;
+        gbcTfPais.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfPais.weightx = 1.0;
+        gbcTfPais.insets = new Insets(5, 10, 5, 10);
+        add(tfPais, gbcTfPais);
+
+        JLabel lblFecha = new JLabel("FECHA:");
+        lblFecha.setForeground(Color.white);
+        GridBagConstraints gbcLblFecha = new GridBagConstraints();
+        gbcLblFecha.gridx = 3;
+        gbcLblFecha.gridy = 4;
+        gbcLblFecha.anchor = GridBagConstraints.WEST;
+        gbcLblFecha.insets = new Insets(5, 10, 5, 10);
+        add(lblFecha, gbcLblFecha);
+
+        rbFecha = new JRadioButton();
+        rbFecha.setForeground(Color.white);
+        rbFecha.setBackground(new Color(0x7E2714));
+        rbFecha.addActionListener(this);
+        GridBagConstraints gbcRbFecha = new GridBagConstraints();
+        gbcRbFecha.gridx = 4;
+        gbcRbFecha.gridy = 4;
+        gbcRbFecha.anchor = GridBagConstraints.WEST;
+        add(rbFecha, gbcRbFecha);
+
+        tfFecha = new JTextField(20);
+        tfFecha.setEnabled(false);
+        GridBagConstraints gbcTfFecha = new GridBagConstraints();
+        gbcTfFecha.gridx = 5;
+        gbcTfFecha.gridy = 4;
+        gbcTfFecha.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfFecha.weightx = 1.0;
+        gbcTfFecha.insets = new Insets(5, 10, 5, 10);
+        add(tfFecha, gbcTfFecha);
+
+        JLabel lblMetodoPago = new JLabel("MÉTODO DE PAGO:");
+        lblMetodoPago.setForeground(Color.white);
+        GridBagConstraints gbcLblMetodoPago = new GridBagConstraints();
+        gbcLblMetodoPago.gridx = 3;
+        gbcLblMetodoPago.gridy = 5;
+        gbcLblMetodoPago.anchor = GridBagConstraints.WEST;
+        gbcLblMetodoPago.insets = new Insets(5, 10, 5, 10);
+        add(lblMetodoPago, gbcLblMetodoPago);
+
+        rbMetodoPago = new JRadioButton();
+        rbMetodoPago.setForeground(Color.white);
+        rbMetodoPago.setBackground(new Color(0x7E2714));
+        rbMetodoPago.addActionListener(this);
+        GridBagConstraints gbcRbMetodoPago = new GridBagConstraints();
+        gbcRbMetodoPago.gridx = 4;
+        gbcRbMetodoPago.gridy = 5;
+        gbcRbMetodoPago.anchor = GridBagConstraints.WEST;
+        add(rbMetodoPago, gbcRbMetodoPago);
+
+        tfMetodoPago = new JTextField(20);
+        tfMetodoPago.setEnabled(false);
+        GridBagConstraints gbcTfMetodoPago = new GridBagConstraints();
+        gbcTfMetodoPago.gridx = 5;
+        gbcTfMetodoPago.gridy = 5;
+        gbcTfMetodoPago.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfMetodoPago.weightx = 1.0;
+        gbcTfMetodoPago.insets = new Insets(5, 10, 5, 10);
+        add(tfMetodoPago, gbcTfMetodoPago);
+
+        JLabel lblCategoria = new JLabel("CATEGORÍA:");
+        lblCategoria.setForeground(Color.white);
+        GridBagConstraints gbcLblCategoria = new GridBagConstraints();
+        gbcLblCategoria.gridx = 3;
+        gbcLblCategoria.gridy = 6;
+        gbcLblCategoria.anchor = GridBagConstraints.WEST;
+        gbcLblCategoria.insets = new Insets(5, 10, 5, 10);
+        add(lblCategoria, gbcLblCategoria);
+
+        rbCategoria = new JRadioButton();
+        rbCategoria.setForeground(Color.white);
+        rbCategoria.setBackground(new Color(0x7E2714));
+        rbCategoria.addActionListener(this);
+        GridBagConstraints gbcRbCategoria = new GridBagConstraints();
+        gbcRbCategoria.gridx = 4;
+        gbcRbCategoria.gridy = 6;
+        gbcRbCategoria.anchor = GridBagConstraints.WEST;
+        add(rbCategoria, gbcRbCategoria);
+
+        tfCategoria = new JTextField(20);
+        tfCategoria.setEnabled(false);
+        GridBagConstraints gbcTfCategoria = new GridBagConstraints();
+        gbcTfCategoria.gridx = 5;
+        gbcTfCategoria.gridy = 6;
+        gbcTfCategoria.fill = GridBagConstraints.HORIZONTAL;
+        gbcTfCategoria.weightx = 1.0;
+        gbcTfCategoria.insets = new Insets(5, 10, 5, 10);
+        add(tfCategoria, gbcTfCategoria);
+
+        // Agregar los botones de radio al ButtonGroup
+        ButtonGroup bgBusqueda = new ButtonGroup();
+        bgBusqueda.add(rbNombre);
+        bgBusqueda.add(rbApellidoPaterno);
+        bgBusqueda.add(rbCalle);
+        bgBusqueda.add(rbNumero);
+        bgBusqueda.add(rbColonia);
+        bgBusqueda.add(rbCodigoPostal);
+        bgBusqueda.add(rbMunicipio);
+        bgBusqueda.add(rbEstado);
+        bgBusqueda.add(rbPais);
+        bgBusqueda.add(rbFecha);
+        bgBusqueda.add(rbMetodoPago);
+        bgBusqueda.add(rbCategoria);
+
+        // Panel de botones en la parte inferior de la ventana (centrados)
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panelBotones.setBackground(new Color(0x7E2714));
+
+        btnConsultar = new JButton("Consultar");
+        btnConsultar.addActionListener(this);
+        panelBotones.add(btnConsultar);
+
+        btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.addActionListener(this);
+        panelBotones.add(btnLimpiar);
+
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(this);
+        panelBotones.add(btnCancelar);
+
+        btnActualizar = new JButton("Actualizar");
+        btnActualizar.addActionListener(this);
+        panelBotones.add(btnActualizar);
+
+        GridBagConstraints gbcBotones = new GridBagConstraints();
+        gbcBotones.gridx = 0;
+        gbcBotones.gridy = 7;
+        gbcBotones.gridwidth = 6;
+        gbcBotones.fill = GridBagConstraints.HORIZONTAL;
+        gbcBotones.insets = new Insets(10, 10, 10, 10);
+        add(panelBotones, gbcBotones);
+
+        // Tabla para mostrar los registros
         String[] columnNames = {"ID", "Nombre", "Apellido Paterno", "Calle", "Número", "Colonia", "Código Postal", "Municipio", "Estado", "País", "Fecha", "Método de Pago", "Categoría"};
         tableModel = new DefaultTableModel(columnNames, 0);
-        table = new JTable(tableModel);
+        JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
+        GridBagConstraints gbcTabla = new GridBagConstraints();
+        gbcTabla.gridx = 0;
+        gbcTabla.gridy = 8;
+        gbcTabla.gridwidth = 6;
+        gbcTabla.fill = GridBagConstraints.BOTH;
+        gbcTabla.weightx = 1.0;
+        gbcTabla.weighty = 1.0;
+        gbcTabla.insets = new Insets(10, 10, 10, 10);
+        add(scrollPane, gbcTabla);
 
-        setLayout(new BorderLayout());
-        JPanel panelOpciones = new JPanel();
-        GroupLayout layout = new GroupLayout(panelOpciones);
-        panelOpciones.setLayout(layout);
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
-
-        layout.setHorizontalGroup(
-                layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(radioNombre)
-                                .addComponent(radioApellidoPaterno)
-                                .addComponent(radioCalle)
-                                .addComponent(radioNumero)
-                                .addComponent(radioColonia)
-                                .addComponent(radioCodigoPostal)
-                                .addComponent(radioMunicipio)
-                                .addComponent(radioEstado)
-                                .addComponent(radioPais)
-                                .addComponent(radioFecha)
-                                .addComponent(radioMetodoPago)
-                                .addComponent(radioCategoria))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(tfNombre)
-                                .addComponent(tfApellidoPaterno)
-                                .addComponent(tfCalle)
-                                .addComponent(tfNumero)
-                                .addComponent(tfColonia)
-                                .addComponent(tfCodigoPostal)
-                                .addComponent(tfMunicipio)
-                                .addComponent(tfEstado)
-                                .addComponent(tfPais)
-                                .addComponent(tfFecha)
-                                .addComponent(comboMetodoPago)
-                                .addComponent(comboCategoria)
-                                .addComponent(btnConsultar))
-        );
-
-        layout.setVerticalGroup(
-                layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioNombre)
-                                .addComponent(tfNombre))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioApellidoPaterno)
-                                .addComponent(tfApellidoPaterno))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioCalle)
-                                .addComponent(tfCalle))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioNumero)
-                                .addComponent(tfNumero))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioColonia)
-                                .addComponent(tfColonia))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioCodigoPostal)
-                                .addComponent(tfCodigoPostal))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioMunicipio)
-                                .addComponent(tfMunicipio))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioEstado)
-                                .addComponent(tfEstado))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioPais)
-                                .addComponent(tfPais))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioFecha)
-                                .addComponent(tfFecha))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioMetodoPago)
-                                .addComponent(comboMetodoPago))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(radioCategoria)
-                                .addComponent(comboCategoria))
-                        .addComponent(btnConsultar)
-        );
-
-        add(panelOpciones, BorderLayout.NORTH);
-        add(scrollPane, BorderLayout.CENTER);
-
-        // Estilo de la tabla
-        table.setFillsViewportHeight(true);
-        table.setBackground(new Color(0xFFFFFF));
-        table.setForeground(new Color(0x000000));
-        table.setSelectionBackground(new Color(0xFF5733));
-        table.setSelectionForeground(new Color(0xFFFFFF));
-        table.setFont(new Font("Arial", Font.PLAIN, 14));
-        table.setRowHeight(25);
-
-        // Configurar la cabecera de la tabla
-        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
-        table.getTableHeader().setBackground(new Color(0xFF5733));
-        table.getTableHeader().setForeground(new Color(0xFFFFFF));
-
-        pack();
-
-        radioNombre.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioNombreActionPerformed(evt);
+        // Cargar los registros en la tabla utilizando hilos
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                cargarRegistrosTabla();
             }
         });
-        radioApellidoPaterno.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioApellidoPaternoActionPerformed(evt);
-            }
-        });
-        radioCalle.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioCalleActionPerformed(evt);
-            }
-        });
-        radioNumero.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioNumeroActionPerformed(evt);
-            }
-        });
-        radioColonia.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioColoniaActionPerformed(evt);
-            }
-        });
-        radioCodigoPostal.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioCodigoPostalActionPerformed(evt);
-            }
-        });
-        radioMunicipio.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioMunicipioActionPerformed(evt);
-            }
-        });
-        radioEstado.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioEstadoActionPerformed(evt);
-            }
-        });
-        radioPais.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioPaisActionPerformed(evt);
-            }
-        });
-        radioFecha.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioFechaActionPerformed(evt);
-            }
-        });
-        radioMetodoPago.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioMetodoPagoActionPerformed(evt);
-            }
-        });
-        radioCategoria.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                radioCategoriaActionPerformed(evt);
-            }
-        });
-        btnConsultar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                btnConsultarActionPerformed(evt);
-            }
-        });
-    }
-
-    private void cargarDatosTabla() {
-        try {
-            Connection connection = conexion.getConnection();
-            String query = "SELECT * FROM Alumnos";
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                Object[] row = {
-                        resultSet.getInt("id"),
-                        resultSet.getString("nombre"),
-                        resultSet.getString("apellido_paterno"),
-                        resultSet.getString("calle"),
-                        resultSet.getString("numero"),
-                        resultSet.getString("colonia"),
-                        resultSet.getString("codigo_postal"),
-                        resultSet.getString("municipio"),
-                        resultSet.getString("estado"),
-                        resultSet.getString("pais"),
-                        resultSet.getString("fecha"),
-                        resultSet.getString("metodo_pago"),
-                        resultSet.getString("categoria")
-                };
-                tableModel.addRow(row);
-            }
-
-            resultSet.close();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al cargar datos de la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void habilitarCampos(boolean estado) {
-        tfNombre.setEnabled(estado);
-        tfApellidoPaterno.setEnabled(estado);
-        tfCalle.setEnabled(estado);
-        tfNumero.setEnabled(estado);
-        tfColonia.setEnabled(estado);
-        tfCodigoPostal.setEnabled(estado);
-        tfMunicipio.setEnabled(estado);
-        tfEstado.setEnabled(estado);
-        tfPais.setEnabled(estado);
-        tfFecha.setEnabled(estado);
-        comboMetodoPago.setEnabled(estado);
-        comboCategoria.setEnabled(estado);
-    }
-
-    private void radioNombreActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        tfNombre.setEnabled(true);
-    }
-
-    private void radioApellidoPaternoActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        tfApellidoPaterno.setEnabled(true);
-    }
-
-    private void radioCalleActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        tfCalle.setEnabled(true);
-    }
-
-    private void radioNumeroActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        tfNumero.setEnabled(true);
-    }
-
-    private void radioColoniaActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        tfColonia.setEnabled(true);
-    }
-
-    private void radioCodigoPostalActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        tfCodigoPostal.setEnabled(true);
-    }
-
-    private void radioMunicipioActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        tfMunicipio.setEnabled(true);
-    }
-
-    private void radioEstadoActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        tfEstado.setEnabled(true);
-    }
-
-    private void radioPaisActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        tfPais.setEnabled(true);
-    }
-
-    private void radioFechaActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        tfFecha.setEnabled(true);
-    }
-
-    private void radioMetodoPagoActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        comboMetodoPago.setEnabled(true);
-    }
-
-    private void radioCategoriaActionPerformed(ActionEvent evt) {
-        habilitarCampos(false);
-        comboCategoria.setEnabled(true);
-    }
-
-    private void btnConsultarActionPerformed(ActionEvent evt) {
-        filtrarTabla();
-    }
-
-    private void filtrarTabla() {
-        try {
-            Connection connection = conexion.getConnection();
-            String query = "SELECT * FROM Alumnos WHERE ";
-            boolean first = true;
-
-            if (radioNombre.isSelected()) {
-                query += "nombre LIKE ?";
-                first = false;
-            }
-            if (radioApellidoPaterno.isSelected()) {
-                if (!first) query += " AND ";
-                query += "apellido_paterno LIKE ?";
-                first = false;
-            }
-            if (radioCalle.isSelected()) {
-                if (!first) query += " AND ";
-                query += "calle LIKE ?";
-                first = false;
-            }
-            if (radioNumero.isSelected()) {
-                if (!first) query += " AND ";
-                query += "numero LIKE ?";
-                first = false;
-            }
-            if (radioColonia.isSelected()) {
-                if (!first) query += " AND ";
-                query += "colonia LIKE ?";
-                first = false;
-            }
-            if (radioCodigoPostal.isSelected()) {
-                if (!first) query += " AND ";
-                query += "codigo_postal LIKE ?";
-                first = false;
-            }
-            if (radioMunicipio.isSelected()) {
-                if (!first) query += " AND ";
-                query += "municipio LIKE ?";
-                first = false;
-            }
-            if (radioEstado.isSelected()) {
-                if (!first) query += " AND ";
-                query += "estado LIKE ?";
-                first = false;
-            }
-            if (radioPais.isSelected()) {
-                if (!first) query += " AND ";
-                query += "pais LIKE ?";
-                first = false;
-            }
-            if (radioFecha.isSelected()) {
-                if (!first) query += " AND ";
-                query += "fecha LIKE ?";
-                first = false;
-            }
-            if (radioMetodoPago.isSelected()) {
-                if (!first) query += " AND ";
-                query += "metodo_pago LIKE ?";
-                first = false;
-            }
-            if (radioCategoria.isSelected()) {
-                if (!first) query += " AND ";
-                query += "categoria LIKE ?";
-                first = false;
-            }
-
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            int index = 1;
-            if (radioNombre.isSelected()) {
-                statement.setString(index++, "%" + tfNombre.getText() + "%");
-            }
-            if (radioApellidoPaterno.isSelected()) {
-                statement.setString(index++, "%" + tfApellidoPaterno.getText() + "%");
-            }
-            if (radioCalle.isSelected()) {
-                statement.setString(index++, "%" + tfCalle.getText() + "%");
-            }
-            if (radioNumero.isSelected()) {
-                statement.setString(index++, "%" + tfNumero.getText() + "%");
-            }
-            if (radioColonia.isSelected()) {
-                statement.setString(index++, "%" + tfColonia.getText() + "%");
-            }
-            if (radioCodigoPostal.isSelected()) {
-                statement.setString(index++, "%" + tfCodigoPostal.getText() + "%");
-            }
-            if (radioMunicipio.isSelected()) {
-                statement.setString(index++, "%" + tfMunicipio.getText() + "%");
-            }
-            if (radioEstado.isSelected()) {
-                statement.setString(index++, "%" + tfEstado.getText() + "%");
-            }
-            if (radioPais.isSelected()) {
-                statement.setString(index++, "%" + tfPais.getText() + "%");
-            }
-            if (radioFecha.isSelected()) {
-                statement.setString(index++, "%" + tfFecha.getText() + "%");
-            }
-            if (radioMetodoPago.isSelected()) {
-                statement.setString(index++, "%" + comboMetodoPago.getSelectedItem().toString() + "%");
-            }
-            if (radioCategoria.isSelected()) {
-                statement.setString(index++, "%" + comboCategoria.getSelectedItem().toString() + "%");
-            }
-
-            ResultSet resultSet = statement.executeQuery();
-
-            tableModel.setRowCount(0);
-            while (resultSet.next()) {
-                Object[] row = {
-                        resultSet.getInt("id"),
-                        resultSet.getString("nombre"),
-                        resultSet.getString("apellido_paterno"),
-                        resultSet.getString("calle"),
-                        resultSet.getString("numero"),
-                        resultSet.getString("colonia"),
-                        resultSet.getString("codigo_postal"),
-                        resultSet.getString("municipio"),
-                        resultSet.getString("estado"),
-                        resultSet.getString("pais"),
-                        resultSet.getString("fecha"),
-                        resultSet.getString("metodo_pago"),
-                        resultSet.getString("categoria")
-                };
-                tableModel.addRow(row);
-            }
-
-            resultSet.close();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al filtrar datos de la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnConsultar) {
+            realizarConsulta();
+        } else if (e.getSource() == btnLimpiar) {
+            limpiarCampos();
+        } else if (e.getSource() == btnCancelar) {
+            regresarAlMenu();
+        } else if (e.getSource() == btnActualizar) {
+            // Iniciar el hilo al presionar el botón "Actualizar"
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    actualizarTabla();
+                }
+            });
+            thread.start();
+        } else if (e.getSource() == rbNombre) {
+            habilitarCajaTexto(tfNombre);
+        } else if (e.getSource() == rbApellidoPaterno) {
+            habilitarCajaTexto(tfApellidoPaterno);
+        } else if (e.getSource() == rbCalle) {
+            habilitarCajaTexto(tfCalle);
+        } else if (e.getSource() == rbNumero) {
+            habilitarCajaTexto(tfNumero);
+        } else if (e.getSource() == rbColonia) {
+            habilitarCajaTexto(tfColonia);
+        } else if (e.getSource() == rbCodigoPostal) {
+            habilitarCajaTexto(tfCodigoPostal);
+        } else if (e.getSource() == rbMunicipio) {
+            habilitarCajaTexto(tfMunicipio);
+        } else if (e.getSource() == rbEstado) {
+            habilitarCajaTexto(tfEstado);
+        } else if (e.getSource() == rbPais) {
+            habilitarCajaTexto(tfPais);
+        } else if (e.getSource() == rbFecha) {
+            habilitarCajaTexto(tfFecha);
+        } else if (e.getSource() == rbMetodoPago) {
+            habilitarCajaTexto(tfMetodoPago);
+        } else if (e.getSource() == rbCategoria) {
+            habilitarCajaTexto(tfCategoria);
+        }
+    }
 
+    private void habilitarCajaTexto(JTextField textField) {
+        tfNombre.setEnabled(false);
+        tfApellidoPaterno.setEnabled(false);
+        tfCalle.setEnabled(false);
+        tfNumero.setEnabled(false);
+        tfColonia.setEnabled(false);
+        tfCodigoPostal.setEnabled(false);
+        tfMunicipio.setEnabled(false);
+        tfEstado.setEnabled(false);
+        tfPais.setEnabled(false);
+        tfFecha.setEnabled(false);
+        tfMetodoPago.setEnabled(false);
+        tfCategoria.setEnabled(false);
+
+        textField.setEnabled(true);
+    }
+    private void realizarConsulta() {
+        String campoBusqueda = "";
+        String valorBusqueda = "";
+        if (rbNombre.isSelected()) {
+            campoBusqueda = "nombre";
+            valorBusqueda = tfNombre.getText();
+        } else if (rbApellidoPaterno.isSelected()) {
+            campoBusqueda = "apellido_paterno";
+            valorBusqueda = tfApellidoPaterno.getText();
+        } else if (rbCalle.isSelected()) {
+            campoBusqueda = "calle";
+            valorBusqueda = tfCalle.getText();
+        } else if (rbNumero.isSelected()) {
+            campoBusqueda = "numero";
+            valorBusqueda = tfNumero.getText();
+        } else if (rbColonia.isSelected()) {
+            campoBusqueda = "colonia";
+            valorBusqueda = tfColonia.getText();
+        } else if (rbCodigoPostal.isSelected()) {
+            campoBusqueda = "codigo_postal";
+            valorBusqueda = tfCodigoPostal.getText();
+        } else if (rbMunicipio.isSelected()) {
+            campoBusqueda = "municipio";
+            valorBusqueda = tfMunicipio.getText();
+        } else if (rbEstado.isSelected()) {
+            campoBusqueda = "estado";
+            valorBusqueda = tfEstado.getText();
+        } else if (rbPais.isSelected()) {
+            campoBusqueda = "pais";
+            valorBusqueda = tfPais.getText();
+        } else if (rbFecha.isSelected()) {
+            campoBusqueda = "fecha";
+            valorBusqueda = tfFecha.getText();
+            // Verificar el formato de fecha o valor ingresado
+            if (valorBusqueda.matches("\\d{2}/\\d{2}/\\d{4}")) {
+                // Formato de fecha completo: dd/mm/yyyy
+                String[] fechaPartes = valorBusqueda.split("/");
+                String dia = fechaPartes[0];
+                String mes = fechaPartes[1];
+                String anio = fechaPartes[2];
+                valorBusqueda = anio + "-" + mes + "-" + dia;
+            } else if (valorBusqueda.matches("\\d+")) {
+                // Se ingresó uno o más números
+                int valor = Integer.parseInt(valorBusqueda);
+                if (valor > 31) {
+                    // Se asume que es un año
+                    valorBusqueda = valorBusqueda + "%";
+                } else if (valor > 12) {
+                    // Se asume que es un día
+                    valorBusqueda = "%-" + valorBusqueda + "-%";
+                } else {
+                    // Se asume que es un mes
+                    valorBusqueda = "%-" + valorBusqueda + "%";
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Formato de fecha inválido. Utiliza el formato dd/mm/yyyy o ingresa solo el día, mes o año.");
+                return;
+            }
+        } else if (rbMetodoPago.isSelected()) {
+            campoBusqueda = "metodo_pago";
+            valorBusqueda = tfMetodoPago.getText();
+        } else if (rbCategoria.isSelected()) {
+            campoBusqueda = "categoria";
+            valorBusqueda = tfCategoria.getText();
+        }
+
+        try {
+            Connection conexion = ConexionBD.getInstance().getConnection();
+            String query = "SELECT * FROM Alumnos WHERE " + campoBusqueda + " LIKE ?";
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setString(1, valorBusqueda);
+            ResultSet resultSet = statement.executeQuery();
+
+            tableModel.setRowCount(0);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nombre = resultSet.getString("nombre");
+                String apellidoPaterno = resultSet.getString("apellido_paterno");
+                String calle = resultSet.getString("calle");
+                String numero = resultSet.getString("numero");
+                String colonia = resultSet.getString("colonia");
+                String codigoPostal = resultSet.getString("codigo_postal");
+                String municipio = resultSet.getString("municipio");
+                String estado = resultSet.getString("estado");
+                String pais = resultSet.getString("pais");
+                Date fecha = resultSet.getDate("fecha");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String fechaStr = dateFormat.format(fecha);
+                String metodoPago = resultSet.getString("metodo_pago");
+                String categoria = resultSet.getString("categoria");
+                Object[] fila = {id, nombre, apellidoPaterno, calle, numero, colonia, codigoPostal, municipio, estado, pais, fechaStr, metodoPago, categoria};
+                tableModel.addRow(fila);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al realizar la consulta.");
+        }
+    }
+    private void limpiarCampos() {
+        tfNombre.setText("");
+        tfApellidoPaterno.setText("");
+        tfCalle.setText("");
+        tfNumero.setText("");
+        tfColonia.setText("");
+        tfCodigoPostal.setText("");
+        tfMunicipio.setText("");
+        tfEstado.setText("");
+        tfPais.setText("");
+        tfFecha.setText("");
+        tfMetodoPago.setText("");
+        tfCategoria.setText("");
+
+        rbNombre.setSelected(true);
+        habilitarCajaTexto(tfNombre);
+    }
+
+    private void regresarAlMenu() {
+        VentanaInicio ventanaInicio = (VentanaInicio) getDesktopPane().getParent().getParent().getParent().getParent();
+        ventanaInicio.remove(this);
+        dispose();
+    }
+
+    private void actualizarTabla() {
+        cargarRegistrosTabla();
+    }
+
+    // Código del hilo
+    private void cargarRegistrosTabla() {
+        try {
+            Connection conexion = ConexionBD.getInstance().getConnection();
+            String query = "SELECT * FROM Alumnos";
+            PreparedStatement statement = conexion.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            final DefaultTableModel model = new DefaultTableModel(new Object[][]{}, new String[]{"ID", "Nombre", "Apellido Paterno", "Calle", "Número", "Colonia", "Código Postal", "Municipio", "Estado", "País", "Fecha", "Método de Pago", "Categoría"});
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nombre = resultSet.getString("nombre");
+                String apellidoPaterno = resultSet.getString("apellido_paterno");
+                String calle = resultSet.getString("calle");
+                String numero = resultSet.getString("numero");
+                String colonia = resultSet.getString("colonia");
+                String codigoPostal = resultSet.getString("codigo_postal");
+                String municipio = resultSet.getString("municipio");
+                String estado = resultSet.getString("estado");
+                String pais = resultSet.getString("pais");
+                Date fecha = resultSet.getDate("fecha");
+                String fechaStr = new SimpleDateFormat("yyyy-MM-dd").format(fecha);
+                String metodoPago = resultSet.getString("metodo_pago");
+                String categoria = resultSet.getString("categoria");
+                Object[] fila = {id, nombre, apellidoPaterno, calle, numero, colonia, codigoPostal, municipio, estado, pais, fechaStr, metodoPago, categoria};
+                model.addRow(fila);
+            }
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    tableModel.setRowCount(0);
+                    for (int i = 0; i < model.getRowCount(); i++) {
+                        tableModel.addRow(model.getDataVector().get(i));
+                    }
+                }
+            });
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(Consultas.this, "Error al cargar los registros en la tabla.");
+        }
     }
 }

@@ -45,7 +45,7 @@ public class Cambios extends JInternalFrame implements ActionListener {
         gbcCenter.fill = GridBagConstraints.HORIZONTAL;
         gbcCenter.insets = new Insets(10, 10, 10, 10);
 
-        JLabel lbl1 = new JLabel("CAMBIOS");
+        JLabel lbl1 = new JLabel("MODIFICAR");
         lbl1.setFont(new Font("Arial", Font.BOLD, 30));
         lbl1.setForeground(Color.white);
         GridBagConstraints gbc = new GridBagConstraints();

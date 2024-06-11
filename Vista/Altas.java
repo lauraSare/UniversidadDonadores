@@ -393,8 +393,8 @@ public class Altas extends JInternalFrame implements ActionListener {
     }
 
     private boolean validarCalle(String calle) {
-        if (!calle.matches("[a-zA-Z\\s]+")) {
-            JOptionPane.showMessageDialog(this, "Solo se permiten letras en el campo CALLE.");
+        if (!calle.matches("^[a-zA-Z\\s]+$")) {
+            JOptionPane.showMessageDialog(this, "Solo se permiten letras y espacios en el campo CALLE.");
             return false;
         }
         if (calle.length() > 20) {
