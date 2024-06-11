@@ -3,6 +3,8 @@ package Vista;
 import ConexionBD.ConexionBD;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -35,7 +37,6 @@ public class Consultas extends JInternalFrame implements ActionListener {
     private JTextField tfFecha;
     private JTextField tfMetodoPago;
     private JTextField tfCategoria;
-    private JButton btnConsultar;
     private JButton btnLimpiar;
     private JButton btnCancelar;
     private JButton btnActualizar;
@@ -82,6 +83,26 @@ public class Consultas extends JInternalFrame implements ActionListener {
         add(rbNombre, gbcRbNombre);
 
         tfNombre = new JTextField(20);
+        tfNombre.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbNombre.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbNombre.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfNombre = new GridBagConstraints();
         gbcTfNombre.gridx = 2;
         gbcTfNombre.gridy = 1;
@@ -111,6 +132,26 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         tfApellidoPaterno = new JTextField(20);
         tfApellidoPaterno.setEnabled(false);
+        tfApellidoPaterno.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbApellidoPaterno.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbApellidoPaterno.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfApellidoPaterno = new GridBagConstraints();
         gbcTfApellidoPaterno.gridx = 2;
         gbcTfApellidoPaterno.gridy = 2;
@@ -140,6 +181,26 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         tfCalle = new JTextField(20);
         tfCalle.setEnabled(false);
+        tfCalle.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbCalle.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbCalle.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfCalle = new GridBagConstraints();
         gbcTfCalle.gridx = 2;
         gbcTfCalle.gridy = 3;
@@ -169,6 +230,26 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         tfNumero = new JTextField(20);
         tfNumero.setEnabled(false);
+        tfNumero.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbNumero.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbNumero.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfNumero = new GridBagConstraints();
         gbcTfNumero.gridx = 2;
         gbcTfNumero.gridy = 4;
@@ -198,6 +279,26 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         tfColonia = new JTextField(20);
         tfColonia.setEnabled(false);
+        tfColonia.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbColonia.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbColonia.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfColonia = new GridBagConstraints();
         gbcTfColonia.gridx = 2;
         gbcTfColonia.gridy = 5;
@@ -225,8 +326,27 @@ public class Consultas extends JInternalFrame implements ActionListener {
         gbcRbCodigoPostal.anchor = GridBagConstraints.WEST;
         add(rbCodigoPostal, gbcRbCodigoPostal);
 
-        tfCodigoPostal = new JTextField(20);
-        tfCodigoPostal.setEnabled(false);
+        tfCodigoPostal = new JTextField(20);tfCodigoPostal.setEnabled(false);
+        tfCodigoPostal.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbCodigoPostal.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbCodigoPostal.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfCodigoPostal = new GridBagConstraints();
         gbcTfCodigoPostal.gridx = 2;
         gbcTfCodigoPostal.gridy = 6;
@@ -257,6 +377,26 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         tfMunicipio = new JTextField(20);
         tfMunicipio.setEnabled(false);
+        tfMunicipio.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbMunicipio.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbMunicipio.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfMunicipio = new GridBagConstraints();
         gbcTfMunicipio.gridx = 5;
         gbcTfMunicipio.gridy = 1;
@@ -284,6 +424,26 @@ public class Consultas extends JInternalFrame implements ActionListener {
         add(rbEstado, gbcRbEstado);
         tfEstado = new JTextField(20);
         tfEstado.setEnabled(false);
+        tfEstado.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbEstado.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbEstado.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfEstado = new GridBagConstraints();
         gbcTfEstado.gridx = 5;
         gbcTfEstado.gridy = 2;
@@ -313,6 +473,26 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         tfPais = new JTextField(20);
         tfPais.setEnabled(false);
+        tfPais.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbPais.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbPais.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfPais = new GridBagConstraints();
         gbcTfPais.gridx = 5;
         gbcTfPais.gridy = 3;
@@ -342,6 +522,26 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         tfFecha = new JTextField(20);
         tfFecha.setEnabled(false);
+        tfFecha.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbFecha.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbFecha.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfFecha = new GridBagConstraints();
         gbcTfFecha.gridx = 5;
         gbcTfFecha.gridy = 4;
@@ -371,6 +571,26 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         tfMetodoPago = new JTextField(20);
         tfMetodoPago.setEnabled(false);
+        tfMetodoPago.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbMetodoPago.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbMetodoPago.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfMetodoPago = new GridBagConstraints();
         gbcTfMetodoPago.gridx = 5;
         gbcTfMetodoPago.gridy = 5;
@@ -400,6 +620,26 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         tfCategoria = new JTextField(20);
         tfCategoria.setEnabled(false);
+        tfCategoria.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (rbCategoria.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (rbCategoria.isSelected()) {
+                    realizarConsulta();
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No se utiliza en este caso
+            }
+        });
         GridBagConstraints gbcTfCategoria = new GridBagConstraints();
         gbcTfCategoria.gridx = 5;
         gbcTfCategoria.gridy = 6;
@@ -427,10 +667,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelBotones.setBackground(new Color(0x7E2714));
 
-        btnConsultar = new JButton("Consultar");
-        btnConsultar.addActionListener(this);
-        panelBotones.add(btnConsultar);
-
+                
         btnLimpiar = new JButton("Limpiar");
         btnLimpiar.addActionListener(this);
         panelBotones.add(btnLimpiar);
@@ -477,9 +714,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnConsultar) {
-            realizarConsulta();
-        } else if (e.getSource() == btnLimpiar) {
+        if (e.getSource() == btnLimpiar) {
             limpiarCampos();
         } else if (e.getSource() == btnCancelar) {
             regresarAlMenu();
@@ -535,6 +770,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         textField.setEnabled(true);
     }
+
     private void realizarConsulta() {
         String campoBusqueda = "";
         String valorBusqueda = "";
@@ -634,6 +870,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "Error al realizar la consulta.");
         }
     }
+
     private void limpiarCampos() {
         tfNombre.setText("");
         tfApellidoPaterno.setText("");
