@@ -27,7 +27,7 @@ public class Bajas extends JInternalFrame implements ActionListener {
         setSize(800, 600);
         setClosable(true);
         setResizable(false);
-        getContentPane().setBackground(new Color(0x7E2714));
+        getContentPane().setBackground(new Color(0xB2838B));
 
         GridBagConstraints gbcCenter = new GridBagConstraints();
         gbcCenter.gridwidth = 2;

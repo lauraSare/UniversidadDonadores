@@ -7,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,10 +25,14 @@ public class InicioSesion extends JInternalFrame implements ActionListener {
         setSize(400, 200);
         setClosable(true);
         setResizable(false);
-        getContentPane().setBackground(Color.decode("#7E2714"));
+        getContentPane().setBackground(Color.decode("#B2838B"));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Icono de la ventana
+        ImageIcon iconoVentana = new ImageIcon("./imagenes/acceso.png");
+        setIconImage(iconoVentana.getImage());
 
         JLabel lblTitulo = new JLabel("INICIO SESIÓN");
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -87,6 +89,10 @@ public class InicioSesion extends JInternalFrame implements ActionListener {
 
         desktopPane.add(this);
     }
+
+    private void setIconImage(Image image) {
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String usuario = tfUsuario.getText();
@@ -94,7 +100,7 @@ public class InicioSesion extends JInternalFrame implements ActionListener {
 
         try {
             Connection conexion = ConexionBD.getInstance().getConnection();
-            String query = "SELECT * FROM Usuarios WHERE usuario = ? AND contrasena = ?";
+            String query = "SELECT * FROM Usuarios WHERE usuario = SHA2(?, 256) AND contrasena = SHA2(?, 256)";
             PreparedStatement statement = conexion.prepareStatement(query);
             statement.setString(1, usuario);
             statement.setString(2, contrasena);

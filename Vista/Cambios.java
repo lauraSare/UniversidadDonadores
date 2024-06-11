@@ -37,7 +37,7 @@ public class Cambios extends JInternalFrame implements ActionListener {
         setSize(800, 600);
         setClosable(true);
         setResizable(false);
-        getContentPane().setBackground(new Color(0x7E2714));
+        getContentPane().setBackground(new Color(0xB2838B));
 
         // Crear GridBagConstraints para centrar los componentes
         GridBagConstraints gbcCenter = new GridBagConstraints();

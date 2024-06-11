@@ -49,7 +49,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
         setSize(800, 600);
         setClosable(true);
         setResizable(false);
-        getContentPane().setBackground(new Color(0x7E2714));
+        getContentPane().setBackground(new Color(0xB2838B));
 
         JLabel lblTitulo = new JLabel("CONSULTAS");
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 30));
@@ -73,7 +73,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         rbNombre = new JRadioButton();
         rbNombre.setForeground(Color.white);
-        rbNombre.setBackground(new Color(0x7E2714));
+        rbNombre.setBackground(new Color(0xB2838B));
         rbNombre.setSelected(true);
         rbNombre.addActionListener(this);
         GridBagConstraints gbcRbNombre = new GridBagConstraints();
@@ -122,7 +122,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         rbApellidoPaterno = new JRadioButton();
         rbApellidoPaterno.setForeground(Color.white);
-        rbApellidoPaterno.setBackground(new Color(0x7E2714));
+        rbApellidoPaterno.setBackground(new Color(0xB2838B));
         rbApellidoPaterno.addActionListener(this);
         GridBagConstraints gbcRbApellidoPaterno = new GridBagConstraints();
         gbcRbApellidoPaterno.gridx = 1;
@@ -171,7 +171,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         rbCalle = new JRadioButton();
         rbCalle.setForeground(Color.white);
-        rbCalle.setBackground(new Color(0x7E2714));
+        rbCalle.setBackground(new Color(0xB2838B));
         rbCalle.addActionListener(this);
         GridBagConstraints gbcRbCalle = new GridBagConstraints();
         gbcRbCalle.gridx = 1;
@@ -220,7 +220,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         rbNumero = new JRadioButton();
         rbNumero.setForeground(Color.white);
-        rbNumero.setBackground(new Color(0x7E2714));
+        rbNumero.setBackground(new Color(0xB2838B));
         rbNumero.addActionListener(this);
         GridBagConstraints gbcRbNumero = new GridBagConstraints();
         gbcRbNumero.gridx = 1;
@@ -269,7 +269,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         rbColonia = new JRadioButton();
         rbColonia.setForeground(Color.white);
-        rbColonia.setBackground(new Color(0x7E2714));
+        rbColonia.setBackground(new Color(0xB2838B));
         rbColonia.addActionListener(this);
         GridBagConstraints gbcRbColonia = new GridBagConstraints();
         gbcRbColonia.gridx = 1;
@@ -318,7 +318,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         rbCodigoPostal = new JRadioButton();
         rbCodigoPostal.setForeground(Color.white);
-        rbCodigoPostal.setBackground(new Color(0x7E2714));
+        rbCodigoPostal.setBackground(new Color(0xB2838B));
         rbCodigoPostal.addActionListener(this);
         GridBagConstraints gbcRbCodigoPostal = new GridBagConstraints();
         gbcRbCodigoPostal.gridx = 1;
@@ -367,7 +367,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         rbMunicipio = new JRadioButton();
         rbMunicipio.setForeground(Color.white);
-        rbMunicipio.setBackground(new Color(0x7E2714));
+        rbMunicipio.setBackground(new Color(0xB2838B));
         rbMunicipio.addActionListener(this);
         GridBagConstraints gbcRbMunicipio = new GridBagConstraints();
         gbcRbMunicipio.gridx = 4;
@@ -415,7 +415,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
         add(lblEstado, gbcLblEstado);
         rbEstado = new JRadioButton();
         rbEstado.setForeground(Color.white);
-        rbEstado.setBackground(new Color(0x7E2714));
+        rbEstado.setBackground(new Color(0xB2838B));
         rbEstado.addActionListener(this);
         GridBagConstraints gbcRbEstado = new GridBagConstraints();
         gbcRbEstado.gridx = 4;
@@ -463,7 +463,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         rbPais = new JRadioButton();
         rbPais.setForeground(Color.white);
-        rbPais.setBackground(new Color(0x7E2714));
+        rbPais.setBackground(new Color(0xB2838B));
         rbPais.addActionListener(this);
         GridBagConstraints gbcRbPais = new GridBagConstraints();
         gbcRbPais.gridx = 4;
@@ -512,7 +512,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         rbFecha = new JRadioButton();
         rbFecha.setForeground(Color.white);
-        rbFecha.setBackground(new Color(0x7E2714));
+        rbFecha.setBackground(new Color(0xB2838B));
         rbFecha.addActionListener(this);
         GridBagConstraints gbcRbFecha = new GridBagConstraints();
         gbcRbFecha.gridx = 4;
@@ -561,7 +561,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         rbMetodoPago = new JRadioButton();
         rbMetodoPago.setForeground(Color.white);
-        rbMetodoPago.setBackground(new Color(0x7E2714));
+        rbMetodoPago.setBackground(new Color(0xB2838B));
         rbMetodoPago.addActionListener(this);
         GridBagConstraints gbcRbMetodoPago = new GridBagConstraints();
         gbcRbMetodoPago.gridx = 4;
@@ -610,7 +610,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         rbCategoria = new JRadioButton();
         rbCategoria.setForeground(Color.white);
-        rbCategoria.setBackground(new Color(0x7E2714));
+        rbCategoria.setBackground(new Color(0xB2838B));
         rbCategoria.addActionListener(this);
         GridBagConstraints gbcRbCategoria = new GridBagConstraints();
         gbcRbCategoria.gridx = 4;
@@ -665,9 +665,9 @@ public class Consultas extends JInternalFrame implements ActionListener {
 
         // Panel de botones en la parte inferior de la ventana (centrados)
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelBotones.setBackground(new Color(0x7E2714));
+        panelBotones.setBackground(new Color(0xB2838B));
 
-                
+
         btnLimpiar = new JButton("Limpiar");
         btnLimpiar.addActionListener(this);
         panelBotones.add(btnLimpiar);
@@ -719,6 +719,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
         } else if (e.getSource() == btnCancelar) {
             regresarAlMenu();
         } else if (e.getSource() == btnActualizar) {
+            //HILOS
             // Iniciar el hilo al presionar el botón "Actualizar"
             Thread thread = new Thread(new Runnable() {
                 @Override
