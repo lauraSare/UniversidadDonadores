@@ -164,7 +164,6 @@ public class VentanaInicio extends JFrame implements ActionListener {
                 Consultas consultas = new Consultas();
                 desktopPane.add(consultas);
                 consultas.setVisible(true);
-                JOptionPane.showMessageDialog(this, "La ventana Consultas se abrió correctamente.");
             } else {
                 JOptionPane.showMessageDialog(this, "Debe iniciar sesión primero.", "Acceso denegado", JOptionPane.WARNING_MESSAGE);
             }

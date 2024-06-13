@@ -306,10 +306,25 @@ public class Cambios extends JInternalFrame implements ActionListener {
         tfMunicipio.setText((String) table.getValueAt(selectedRow, 7));
         tfEstado.setText((String) table.getValueAt(selectedRow, 8));
         tfPais.setText((String) table.getValueAt(selectedRow, 9));
-        tfFecha.setText(((Date) table.getValueAt(selectedRow, 10)).toString());
+
+        // Obtener la fecha en formato dd/MM/yyyy desde la tabla
+        String fechaStr = (String) table.getValueAt(selectedRow, 10);
+
+        // Crear las instancias de SimpleDateFormat para el formato de entrada y salida
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            java.util.Date fecha = inputFormat.parse(fechaStr);
+            String fechaFormateada = outputFormat.format(fecha);
+            tfFecha.setText(fechaFormateada);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         comboMetodoPago.setSelectedItem(table.getValueAt(selectedRow, 11));
         comboCategoria.setSelectedItem(table.getValueAt(selectedRow, 12));
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -436,7 +451,11 @@ public class Cambios extends JInternalFrame implements ActionListener {
                 String metodoPago = resultSet.getString("metodo_pago");
                 String categoria = resultSet.getString("categoria");
 
-                Object[] fila = {id, nombre, apellidoPaterno, calle, numero, colonia, codigoPostal, municipio, estado, pais, fecha, metodoPago, categoria};
+                // Formatear la fecha como "dd/MM/yyyy"
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String fechaFormateada = dateFormat.format(fecha);
+
+                Object[] fila = {id, nombre, apellidoPaterno, calle, numero, colonia, codigoPostal, municipio, estado, pais, fechaFormateada, metodoPago, categoria};
                 tableModel.addRow(fila);
             }
         } catch (SQLException ex) {
@@ -444,14 +463,13 @@ public class Cambios extends JInternalFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "Error al cargar los datos de la tabla.");
         }
     }
-
     private boolean validarNombre(String nombre) {
-        if (!nombre.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(this, "Solo se permiten letras en el campo NOMBRE.");
+        if (!nombre.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(this, "Solo se permiten letras y espacios en el campo NOMBRE.");
             return false;
         }
-        if (nombre.length() > 20) {
-            JOptionPane.showMessageDialog(this, "La longitud máxima permitida es de 20 caracteres en el campo NOMBRE.");
+        if (nombre.length() > 50) {
+            JOptionPane.showMessageDialog(this, "La longitud máxima permitida es de 50 caracteres en el campo NOMBRE.");
             return false;
         }
         return true;
@@ -506,12 +524,8 @@ public class Cambios extends JInternalFrame implements ActionListener {
     }
 
     private boolean validarCodigoPostal(String codigoPostal) {
-        if (!codigoPostal.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "Solo se permiten números en el campo CÓDIGO POSTAL.");
-            return false;
-        }
-        if (codigoPostal.length() > 6) {
-            JOptionPane.showMessageDialog(this, "La longitud máxima permitida es de 6 dígitos en el campo CÓDIGO POSTAL.");
+        if (!codigoPostal.matches("\\d{5}")) {
+            JOptionPane.showMessageDialog(this, "El CÓDIGO POSTAL debe tener exactamente 5 dígitos.");
             return false;
         }
         return true;
@@ -554,7 +568,7 @@ public class Cambios extends JInternalFrame implements ActionListener {
     }
 
     private boolean validarFecha(String fecha) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
         dateFormat.setLenient(false);
         try {
             dateFormat.parse(fecha);

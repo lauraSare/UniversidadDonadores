@@ -86,16 +86,12 @@ public class Consultas extends JInternalFrame implements ActionListener {
         tfNombre.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbNombre.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbNombre.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -135,16 +131,12 @@ public class Consultas extends JInternalFrame implements ActionListener {
         tfApellidoPaterno.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbApellidoPaterno.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbApellidoPaterno.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -184,16 +176,12 @@ public class Consultas extends JInternalFrame implements ActionListener {
         tfCalle.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbCalle.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbCalle.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -233,16 +221,12 @@ public class Consultas extends JInternalFrame implements ActionListener {
         tfNumero.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbNumero.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbNumero.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -282,16 +266,12 @@ public class Consultas extends JInternalFrame implements ActionListener {
         tfColonia.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbColonia.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbColonia.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -326,20 +306,17 @@ public class Consultas extends JInternalFrame implements ActionListener {
         gbcRbCodigoPostal.anchor = GridBagConstraints.WEST;
         add(rbCodigoPostal, gbcRbCodigoPostal);
 
-        tfCodigoPostal = new JTextField(20);tfCodigoPostal.setEnabled(false);
+        tfCodigoPostal = new JTextField(20);
+        tfCodigoPostal.setEnabled(false);
         tfCodigoPostal.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbCodigoPostal.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbCodigoPostal.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -347,6 +324,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
                 // No se utiliza en este caso
             }
         });
+
         GridBagConstraints gbcTfCodigoPostal = new GridBagConstraints();
         gbcTfCodigoPostal.gridx = 2;
         gbcTfCodigoPostal.gridy = 6;
@@ -380,16 +358,12 @@ public class Consultas extends JInternalFrame implements ActionListener {
         tfMunicipio.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbMunicipio.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbMunicipio.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -413,6 +387,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
         gbcLblEstado.anchor = GridBagConstraints.WEST;
         gbcLblEstado.insets = new Insets(5, 10, 5, 10);
         add(lblEstado, gbcLblEstado);
+
         rbEstado = new JRadioButton();
         rbEstado.setForeground(Color.white);
         rbEstado.setBackground(new Color(0xB2838B));
@@ -422,21 +397,18 @@ public class Consultas extends JInternalFrame implements ActionListener {
         gbcRbEstado.gridy = 2;
         gbcRbEstado.anchor = GridBagConstraints.WEST;
         add(rbEstado, gbcRbEstado);
+
         tfEstado = new JTextField(20);
         tfEstado.setEnabled(false);
         tfEstado.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbEstado.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbEstado.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -476,16 +448,12 @@ public class Consultas extends JInternalFrame implements ActionListener {
         tfPais.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbPais.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbPais.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -493,6 +461,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
                 // No se utiliza en este caso
             }
         });
+
         GridBagConstraints gbcTfPais = new GridBagConstraints();
         gbcTfPais.gridx = 5;
         gbcTfPais.gridy = 3;
@@ -525,16 +494,12 @@ public class Consultas extends JInternalFrame implements ActionListener {
         tfFecha.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbFecha.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbFecha.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -542,6 +507,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
                 // No se utiliza en este caso
             }
         });
+
         GridBagConstraints gbcTfFecha = new GridBagConstraints();
         gbcTfFecha.gridx = 5;
         gbcTfFecha.gridy = 4;
@@ -574,16 +540,12 @@ public class Consultas extends JInternalFrame implements ActionListener {
         tfMetodoPago.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbMetodoPago.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbMetodoPago.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -623,16 +585,12 @@ public class Consultas extends JInternalFrame implements ActionListener {
         tfCategoria.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                if (rbCategoria.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                if (rbCategoria.isSelected()) {
-                    realizarConsulta();
-                }
+                realizarConsulta();
             }
 
             @Override
@@ -719,7 +677,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
         } else if (e.getSource() == btnCancelar) {
             regresarAlMenu();
         } else if (e.getSource() == btnActualizar) {
-            //HILOS
+
             // Iniciar el hilo al presionar el botón "Actualizar"
             Thread thread = new Thread(new Runnable() {
                 @Override
@@ -730,28 +688,40 @@ public class Consultas extends JInternalFrame implements ActionListener {
             thread.start();
         } else if (e.getSource() == rbNombre) {
             habilitarCajaTexto(tfNombre);
+            tfNombre.requestFocus();
         } else if (e.getSource() == rbApellidoPaterno) {
             habilitarCajaTexto(tfApellidoPaterno);
+            tfApellidoPaterno.requestFocus();
         } else if (e.getSource() == rbCalle) {
             habilitarCajaTexto(tfCalle);
+            tfCalle.requestFocus();
         } else if (e.getSource() == rbNumero) {
             habilitarCajaTexto(tfNumero);
+            tfNumero.requestFocus();
         } else if (e.getSource() == rbColonia) {
             habilitarCajaTexto(tfColonia);
+            tfColonia.requestFocus();
         } else if (e.getSource() == rbCodigoPostal) {
             habilitarCajaTexto(tfCodigoPostal);
+            tfCodigoPostal.requestFocus();
         } else if (e.getSource() == rbMunicipio) {
             habilitarCajaTexto(tfMunicipio);
+            tfMunicipio.requestFocus();
         } else if (e.getSource() == rbEstado) {
             habilitarCajaTexto(tfEstado);
+            tfEstado.requestFocus();
         } else if (e.getSource() == rbPais) {
             habilitarCajaTexto(tfPais);
+            tfPais.requestFocus();
         } else if (e.getSource() == rbFecha) {
             habilitarCajaTexto(tfFecha);
+            tfFecha.requestFocus();
         } else if (e.getSource() == rbMetodoPago) {
             habilitarCajaTexto(tfMetodoPago);
+            tfMetodoPago.requestFocus();
         } else if (e.getSource() == rbCategoria) {
             habilitarCajaTexto(tfCategoria);
+            tfCategoria.requestFocus();
         }
     }
 
@@ -770,39 +740,41 @@ public class Consultas extends JInternalFrame implements ActionListener {
         tfCategoria.setEnabled(false);
 
         textField.setEnabled(true);
+
+        textField.requestFocus();
     }
 
     private void realizarConsulta() {
         String campoBusqueda = "";
         String valorBusqueda = "";
-        if (rbNombre.isSelected()) {
+        if (tfNombre.isEnabled()) {
             campoBusqueda = "nombre";
             valorBusqueda = tfNombre.getText();
-        } else if (rbApellidoPaterno.isSelected()) {
+        } else if (tfApellidoPaterno.isEnabled()) {
             campoBusqueda = "apellido_paterno";
             valorBusqueda = tfApellidoPaterno.getText();
-        } else if (rbCalle.isSelected()) {
+        } else if (tfCalle.isEnabled()) {
             campoBusqueda = "calle";
             valorBusqueda = tfCalle.getText();
-        } else if (rbNumero.isSelected()) {
+        } else if (tfNumero.isEnabled()) {
             campoBusqueda = "numero";
             valorBusqueda = tfNumero.getText();
-        } else if (rbColonia.isSelected()) {
+        } else if (tfColonia.isEnabled()) {
             campoBusqueda = "colonia";
             valorBusqueda = tfColonia.getText();
-        } else if (rbCodigoPostal.isSelected()) {
+        } else if (tfCodigoPostal.isEnabled()) {
             campoBusqueda = "codigo_postal";
             valorBusqueda = tfCodigoPostal.getText();
-        } else if (rbMunicipio.isSelected()) {
+        } else if (tfMunicipio.isEnabled()) {
             campoBusqueda = "municipio";
             valorBusqueda = tfMunicipio.getText();
-        } else if (rbEstado.isSelected()) {
+        } else if (tfEstado.isEnabled()) {
             campoBusqueda = "estado";
             valorBusqueda = tfEstado.getText();
-        } else if (rbPais.isSelected()) {
+        } else if (tfPais.isEnabled()) {
             campoBusqueda = "pais";
             valorBusqueda = tfPais.getText();
-        } else if (rbFecha.isSelected()) {
+        } else if (tfFecha.isEnabled()) {
             campoBusqueda = "fecha";
             valorBusqueda = tfFecha.getText();
             // Verificar el formato de fecha o valor ingresado
@@ -830,10 +802,10 @@ public class Consultas extends JInternalFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Formato de fecha inválido. Utiliza el formato dd/mm/yyyy o ingresa solo el día, mes o año.");
                 return;
             }
-        } else if (rbMetodoPago.isSelected()) {
+        } else if (tfMetodoPago.isEnabled()) {
             campoBusqueda = "metodo_pago";
             valorBusqueda = tfMetodoPago.getText();
-        } else if (rbCategoria.isSelected()) {
+        } else if (tfCategoria.isEnabled()) {
             campoBusqueda = "categoria";
             valorBusqueda = tfCategoria.getText();
         }
@@ -842,7 +814,7 @@ public class Consultas extends JInternalFrame implements ActionListener {
             Connection conexion = ConexionBD.getInstance().getConnection();
             String query = "SELECT * FROM Alumnos WHERE " + campoBusqueda + " LIKE ?";
             PreparedStatement statement = conexion.prepareStatement(query);
-            statement.setString(1, valorBusqueda);
+            statement.setString(1, "%" + valorBusqueda + "%");
             ResultSet resultSet = statement.executeQuery();
 
             tableModel.setRowCount(0);

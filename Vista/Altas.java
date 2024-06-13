@@ -369,17 +369,17 @@ public class Altas extends JInternalFrame implements ActionListener {
     }
 
     private boolean validarNombre(String nombre) {
-        if (!nombre.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(this, "Solo se permiten letras en el campo NOMBRE.");
+        if (!nombre.matches("[a-zA-Z\\s]+"))
+        {
+            JOptionPane.showMessageDialog(this, "Solo se permiten letras y espacios en el campo NOMBRE.");
             return false;
         }
-        if (nombre.length() > 20) {
-            JOptionPane.showMessageDialog(this, "La longitud máxima permitida es de 20 caracteres en el campo NOMBRE.");
+        if (nombre.length() > 50) {
+            JOptionPane.showMessageDialog(this, "La longitud máxima permitida es de 50 caracteres en el campo NOMBRE.");
             return false;
         }
         return true;
     }
-
     private boolean validarApellidoPaterno(String apellidoPaterno) {
         if (!apellidoPaterno.matches("[a-zA-Z]+")) {
             JOptionPane.showMessageDialog(this, "Solo se permiten letras en el campo APELLIDO PATERNO.");
@@ -429,12 +429,9 @@ public class Altas extends JInternalFrame implements ActionListener {
     }
 
     private boolean validarCodigoPostal(String codigoPostal) {
-        if (!codigoPostal.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, "Solo se permiten números en el campo CÓDIGO POSTAL.");
-            return false;
-        }
-        if (codigoPostal.length() > 6) {
-            JOptionPane.showMessageDialog(this, "La longitud máxima permitida es de 6 dígitos en el campo CÓDIGO POSTAL.");
+        //expresion regular
+        if (!codigoPostal.matches("\\d{5}")) {
+            JOptionPane.showMessageDialog(this, "El CÓDIGO POSTAL debe tener exactamente 5 dígitos.");
             return false;
         }
         return true;
